@@ -79,19 +79,26 @@
 							<li class="nav-item"><a class="nav-link" href="#default_settings">Default Settings</a></li>
 						</ul>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#idocs_layout">Footstep Entity</a>
+					<li class="nav-item"><a class="nav-link" href="#main_settings">Footstep Entity</a>
 						<ul class="nav flex-column">
-							<li class="nav-item"><a class="nav-link" href="#idocs_header">Header</a></li>
+							<li class="nav-item"><a class="nav-link" href="#main_settings">Main Settings</a></li>
+							<li class="nav-item"><a class="nav-link" href="#entity_layers">Layers</a></li>
+							<li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
 						</ul>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#idocs_components">Ground Identifier</a>
+					<li class="nav-item"><a class="nav-link" href="#ground_tags">Ground Identifier</a>
 						<ul class="nav flex-column">
-							<li class="nav-item"><a class="nav-link" href="#idocs_accordion">Accordion</a></li>
+							<li class="nav-item"><a class="nav-link" href="#ground_tags">Tag</a></li>
 						</ul>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#idocs_components">Support</a>
+					<li class="nav-item"><a class="nav-link" href="#common_errors">Common Errors</a>
 						<ul class="nav flex-column">
-							<li class="nav-item"><a class="nav-link" href="#idocs_accordion">Support</a></li>
+							<li class="nav-item"><a class="nav-link" href="#common_errors">Tag "" or "Default" does not exist.</a></li>
+						</ul>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#support">Support</a>
+						<ul class="nav flex-column">
+							<li class="nav-item"><a class="nav-link" href="#support">Contact Me</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -127,7 +134,7 @@
 						<p class="lead">Follow the steps below to setup your footstep system:</p>
 						<ol>
 							<li>In Unity go to Assets > Import Package > Custom Package</li>
-							<li>Select the footstepsystem.unitypackage and import it</li>
+							<li>Select the <b>FootstepSystem.unitypackage</b> and import it</li>
 							<li>In your scene add a new GameObject and add the FootstepSoundManager component to it.</li>
 						</ol>
 					</section>
@@ -137,7 +144,7 @@
 					<!-- Footstep Sound Manager
 		============================ -->
 					<section id="sound_groups">
-						<h2>Sound Groups</h2>
+						<h2>Adding Sound Groups</h2>
 						<p>Here you can edit your sound groups. An example of a sound group is "Grass" or "Wood".</p>
 						<p>
 							<a href="assets/images/sound_group.png" class="popup-img">
@@ -147,6 +154,8 @@
 
 						<p>Simply type the sound group name and add it.</p>
 					</section>
+					
+					<hr class="divider">
 
 					<section id="assign_sounds">
 						<h2>Assigning Sounds</h2>
@@ -154,7 +163,7 @@
 							<li>List of sound groups which you can select.</li>
 							<li>List of layers which you can select.</li>
 							<li>If you want to drag custom sounds, drag the sounds into this area.</li>
-							<li>For automatic sound assignment, type in the sound name into the box, for example "Wood" and click one of the apply sounds button.</li>
+							<li>For automatic sound assignment, type in the sound name into the box, for example "Wood" and click one of the apply sounds button. This will find all clips with the text "Wood" and assign them.</li>
 						</ol>
 						<p>
 							<a href="assets/images/assigning_sounds.png" class="popup-img">
@@ -162,12 +171,14 @@
 							</a>
 						</p>
 					</section>
+					
+					<hr class="divider">
 
 					<section id="layers">
 						<h2>Layers</h2>
 						<p>Layers allow you to have different footstep sounds for the same ground type, depending on the circumstance.</p>
-						<p>Example 1: You have a player and an alien, on concrete player will make stomping sounds but the alien would have "barefoot" sounds. Alien layer would have barefoot sounds, whereas player would have the layer "Player".</p>
-						<p>Example 2: Player can take off his shoes at any time making his sounds different, with shoes player has layer "Player_Shoes" but upon taking them off he has layer "Player_Barefoot".</p>
+						<p class="alert alert-info">Example 1: You have a player and an alien, on concrete player will make stomping sounds but the alien would have "barefoot" sounds. Alien layer would have barefoot sounds, whereas player would have the layer "Player".</p>
+						<p class="alert alert-info">Example 2: Player can take off his shoes at any time making his sounds different, with shoes player has layer "Player_Shoes" but upon taking them off he has layer "Player_Barefoot".</p>
 
 						<h2>Changing Layer during run time</h2>
 						<pre><code class="csharp">// to change layer:
@@ -180,6 +191,8 @@ void ChangeLayer(){
 
 					</section>
 					
+					<hr class="divider">
+					
 					<section id="default_settings">
 						<h2>Default Settings Tab</h2>
 						<p>Default Audio Mixer is used for the volume group.</p>
@@ -190,6 +203,98 @@ void ChangeLayer(){
 						<p class="alert alert-warning">Newly added footstep entities won't have the audio mixer assigned by default, you need to click the "Assign to all" in order for new entities to have that audio mixer.</p>
 						
 						<p>You can also set the default footstep tag which will be used when an object does not have a Ground Identifier assigned.</p>
+						
+					</section>
+					
+					<hr class="divider">
+					
+					<section id="main_settings">
+						<h2>Main Settings</h2>
+						
+						<p>The audio source is the target audio source for the footstep sounds, this can be automatically created when "Add Audio Source" is clicked. This will also automatically apply 3D settings.</p>
+						
+						<p>Ray offset is the offset for the feet, the red sphere should be positioned where you want the player to detect ground change. For better accuracy you could even use 2x footstep entity (one for each foot).</p>
+						
+						<p>Distance is the ray distance, increase it enough for the red sphere to appear (but don't make it too large).</p>
+						
+						<p>
+							<a href="assets/images/rayoffset.png" class="popup-img">
+								<img src="assets/images/rayoffset.png" class="img-fluid border">
+							</a>
+						</p>
+						
+						<p>
+						3D sound preset will automatically apply settings to the above assigned audio source. 
+						It changes:
+						<ul>
+							<li>Spatial Blend to 3D</li>
+							<li>Doppler level to 0</li>
+							<li>Spread to 60</li>
+							<li>Turns off "Play on Awake"</li>
+						</ul>
+						</p>
+						
+					</section>
+					
+					<hr class="divider">
+					
+					<section id="entity_layers">
+						<h2>Layers</h2>
+						
+						<p>
+						Here you can set the layer for the entity.
+						<a class="nav-link" href="#layers">Layers are further explained here</a>
+						</p>
+						
+					</section>
+					
+					<hr class="divider">
+					
+					<section id="events">
+						<h2>Events</h2>
+						
+						<p>Events are useful if you want footsteps to drive some code logic.</p>
+						
+						<p class="alert alert-info">Example: Enemies will hear player's footsteps if close enough, use "OnFootstepSoundPlayed".</p>
+						<p class="alert alert-info">Example: When player walks into mud he gets slowed down, use "OnGroundChanged" where second argument is "Mud".</p>
+						
+					</section>
+					
+					<hr class="divider">
+					
+					<section id="ground_tags">
+						<h2>Tags</h2>
+						
+						<p>After adding your tags in the FootstepSoundManager you will see them appear in the GroundIdentifier, simplify assign this component to anything that player can walk on and setup the correct tags for each object. (It's very easy if you have prefabs).</p>
+						
+					</section>
+					
+					<hr class="divider">
+					
+					<section id="common_errors">
+						<h2>Common Errors</h2>
+						
+						<div class="row">
+						  <div class="col-lg-12">
+							<div class="accordion accordion-alterate arrow-right" id="errors">
+							  <div class="card">
+								<div class="card-header" id="heading1">
+								  <h5 class="mb-0"> <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">Tag "" or "Default" does not exist.</a> </h5>
+								</div>
+								<div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#errors">
+								  <div class="card-body">This error means you didn't set the default tag in the FootstepSoundManager. It also means that GroundIdentifier is missing.</div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+						
+					</section>
+					
+					<hr class="divider">
+					
+					<section id="support">
+						<p>If you have any questions, or suggestions you can either post them on itch.io or contact me directly on discord <li><i class="fab fa-discord"></i> killereks#0960</li></p>
 						
 					</section>
 
