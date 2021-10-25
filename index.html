@@ -84,6 +84,7 @@
 							<li class="nav-item"><a class="nav-link" href="#main_settings">Main Settings</a></li>
 							<li class="nav-item"><a class="nav-link" href="#entity_layers">Layers</a></li>
 							<li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+							<li class="nav-item"><a class="nav-link" href="#playing_sounds">Playing Sounds</a></li>
 						</ul>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="#ground_tags">Ground Identifier</a>
@@ -257,6 +258,67 @@ void ChangeLayer(){
 						
 						<p class="alert alert-info">Example: Enemies will hear player's footsteps if close enough, use "OnFootstepSoundPlayed".</p>
 						<p class="alert alert-info">Example: When player walks into mud he gets slowed down, use "OnGroundChanged" where second argument is "Mud".</p>
+						
+					</section>
+					
+					<hr class="divider">
+					
+					<section id="playing_sounds">
+						<h2>Playing Sounds</h2>
+						
+						<p>There are two main ways of playing the footstep sound, depending on what your scenario is.</p>
+						
+						<p class="alert alert-info">First Person Character</p>
+						<pre><code class="csharp">
+FootstepEntity fEntity;
+
+void PlaySound(){
+	// run this command to play the sound.
+	fEntity.PlayFootstepSound();
+}</code></pre>
+					
+					<p>Here is an example on how you can use it in a first person game.</p>
+					
+					<pre><code class="csharp">
+FootstepEntity fEntity; // our footstep entity component
+
+float footstepTimer; // keep track of the time until next sound
+[SerializeField] float footstepFrequency = 7f; // means 7 m/s gives 1 sound per second
+
+Rigidbody rb; // rigidbody or character controller, whatever you're using
+
+void Update(){
+	footstepTimer += rb.velocity.magnitude;
+	
+	if (footstepTimer >= footstepFrequency){
+		footstepTimer = 0f;
+		fEntity.PlayFootstepSound();
+	}
+}</code></pre>
+					
+					<p class="alert alert-info">Third Person Character / NPCs</p>
+					
+					Go to the animation import settings.
+					
+					<ol>
+						<li>Move the slider until there is a footstep in the animation.</li>
+						<li>Add an animation event</li>
+						<li>Add the function "PlayFootstepSound" (Case Sensitive!)</li>
+					</ol>
+					
+					<p>
+						<a href="assets/images/animations.png" class="popup-img">
+							<img src="assets/images/animations.png" class="img-fluid border">
+						</a>
+					</p>
+						
+					<p>Make sure that the FootstepEntity is on the same object as the animator that is playing that animation.</p>
+						
+					<p>
+						<a href="assets/images/animations2.png" class="popup-img">
+							<img src="assets/images/animations2.png" class="img-fluid border">
+						</a>
+					</p>
 						
 					</section>
 					
