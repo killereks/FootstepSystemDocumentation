@@ -1,1 +1,0 @@
-url: "https://killereks.github.io/FootstepSystemDocumentation/"
